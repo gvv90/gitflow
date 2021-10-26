@@ -10,6 +10,7 @@ RUN jlink \
          --output /javaruntime
 
 FROM registry.access.redhat.com/ubi8/ubi:8.4-211
+RUN echo "Enabling running mode on Jenkins Dockerfile"
 
 ENV LANG C.UTF-8
 
