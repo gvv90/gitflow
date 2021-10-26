@@ -17,6 +17,8 @@ ENV LANG C.UTF-8
 ARG TARGETARCH
 ARG COMMIT_SHA
 
+
+#Agregando binario nmap y openssl para construiccion de imagen
 RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=0 --setopt=tsflags=nodocs -y \
         git \
         git-lfs \
@@ -25,6 +27,8 @@ RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=
         fontconfig \
         unzip \
         which \
+        nmap \
+        openssl \
     && dnf clean --disableplugin=subscription-manager all
 
 ARG user=jenkins
