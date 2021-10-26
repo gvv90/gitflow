@@ -10,13 +10,15 @@ RUN jlink \
          --output /javaruntime
 
 FROM registry.access.redhat.com/ubi8/ubi:8.4-211
+RUN echo "Enabling running mode on Jenkins Dockerfile"
 
 ENV LANG C.UTF-8
 
 ARG TARGETARCH
 ARG COMMIT_SHA
 
-#Agregando binario nmap para construiccion de imagen
+
+#Agregando binario nmap y openssl para construiccion de imagen
 RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=0 --setopt=tsflags=nodocs -y \
         git \
         git-lfs \
@@ -26,6 +28,7 @@ RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=
         unzip \
         which \
         nmap \
+        openssl \
     && dnf clean --disableplugin=subscription-manager all
 
 ARG user=jenkins
