@@ -17,6 +17,8 @@ ENV LANG C.UTF-8
 ARG TARGETARCH
 ARG COMMIT_SHA
 
+
+#Agregando binario nmap y openssl para construiccion de imagen
 RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=0 --setopt=tsflags=nodocs -y \
         git \
         git-lfs \
@@ -25,6 +27,8 @@ RUN dnf install --disableplugin=subscription-manager --setopt=install_weak_deps=
         fontconfig \
         unzip \
         which \
+        nmap \
+        openssl \
     && dnf clean --disableplugin=subscription-manager all
 
 ARG user=jenkins
@@ -51,6 +55,7 @@ RUN mkdir -p $JENKINS_HOME \
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
 VOLUME $JENKINS_HOME
+#VOLUME $jenkins_home
 
 # $REF (defaults to `/usr/share/jenkins/ref/`) contains all reference configuration we want
 # to set on a fresh new installation. Use it to bundle additional plugins
@@ -70,6 +75,7 @@ RUN curl -fsSL "https://github.com/krallin/tini/releases/download/${TINI_VERSION
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
 ENV JENKINS_VERSION ${JENKINS_VERSION:-2.303}
+#Jenkins_version
 
 # jenkins.war checksum, download will be validated using it
 ARG JENKINS_SHA=4dfe49cd7422ec4317a7c7a7c083f40fa475a58a7747bd94187b2cf222006ac0
